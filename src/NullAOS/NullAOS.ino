@@ -1,13 +1,15 @@
 #include <NullPacketComms.h>
 #define UNKNOWN_PIN 0xFF
 //Author: Steve Richardson
+//Software Name: NullAOS 
+//Description: UART Arduino operating system, top-level sketch.
 
-const uint8_t PIN_DEF[] = {2,9,10,11,12,13}; // PINs mapped in this program
+const uint8_t PIN_DEF[] = {2,3,4,5,6,7,8,9,10,11,12,13}; // PINs mapped in this program
 uint8_t IO_def[] = {0,0,0,0,0,0}; // 0 is output 1 is input
 uint8_t IO_lvl[] = {0,1,1,1,1,1}; // the level on the pins 1 is High 0 is Low
-uint8_t A_PIN_DEF[] = {A0,A1}; // analogue pins mapped in this program
-uint8_t A_PIN_PULLUP[] = {0,0}; // analogue pin pullup state, 0 disabled, 1 enabled
-word A_PIN_STATES[] = {65535,65535}; //the last read taken on the analogue pins, none / bad read is max word value
+const uint8_t A_PIN_DEF[] = {A0,A1,A2,A3,A4,A5,A6}; // analogue pins mapped in this program
+uint8_t A_PIN_PULLUP[] = {0,0,0,0,0,0,0}; // analogue pin pullup state, 0 disabled, 1 enabled
+word A_PIN_STATES[] = {65535,65535,65535,65535,65535,65535,65535}; //the last read taken on the analogue pins, none / bad read is max word value
 const uint8_t home_address = 1;
 bool sys_ram_integrity = true;  
 bool pending_instruction = false; //has the system cleared the last instruction
@@ -181,4 +183,3 @@ uint8_t get_pin_mode(uint8_t pin){
   else if (*out & bit) return INPUT_PULLUP;
   else return INPUT;
 }
-
