@@ -4,7 +4,8 @@
 //Software Name: NullAOS 
 //Description: UART Arduino operating system, top-level sketch.
 
-const uint8_t PIN_DEF[] = {2,3,4,5,6,7,8,9,10,11,12,13}; // PINs mapped in this program
+const int hsc_key = 0; // Hardware software compatibility, increments with versions when new features become available.
+const uint8_t PIN_DEF[] = {2,3,4,5,6,7,8,9,10,11,12,13}; // Digital PINs mapped in this program
 uint8_t IO_def[] = {0,0,0,0,0,0}; // 0 is output 1 is input
 uint8_t IO_lvl[] = {0,1,1,1,1,1}; // the level on the pins 1 is High 0 is Low
 const uint8_t A_PIN_DEF[] = {A0,A1,A2,A3,A4,A5,A6}; // analogue pins mapped in this program
@@ -19,84 +20,21 @@ uint8_t instruction_payload[24];
 bool sys_serial_backlog = false;
 NullPacketComms comms;
 
+//configures the NPC serial port to start handling packets, re-initialises IO to default state
 void setup() { 
   comms.init_port(115200, 32); 
   sys_ram_integrity = reinit_io_from_ram();
 }
 
-bool reinit_io_from_ram() {
-  for (int i = 0; i < sizeof(PIN_DEF); i++) {
-    if (!write_IO(PIN_DEF[i], IO_lvl[i], IO_def[i])) {
-      return false;
-    }
-  }
-  for (int i=0; i<sizeof(A_PIN_DEF); i++) {  // initialise the analog inputs
-    if (A_PIN_PULLUP[i] == 1) { pinMode(A_PIN_DEF[i], INPUT_PULLUP); }
-    else { pinMode(A_PIN_DEF[i], INPUT); }
-  }
-  return true;
-}
 
-
-bool write_IO(uint8_t pin_index, uint8_t level, uint8_t io_type) {
-  switch(io_type) {
-    case (0): //DIO output
-      if ((level == 0 || level == 1)){ //&& exists_in_byte_array(pin_index, DIO, DIO_LEN, true)) { 
-        if (get_pin_mode(pin_index) != OUTPUT) { pinMode(pin_index, OUTPUT); }; 
-        digitalWrite(pin_index, level); 
-        return true;
-      }
-      break;
-  }
-  return false;
-}
-
-int read_IO(uint8_t pin_index, uint8_t io_type) {
-  switch(io_type) {
-    case(0): //DIO input
-      break;
-    case(1): //AIO input
-      return analogRead(pin_index);
-  }
-}
-
-bool exists_in_byte_array(uint8_t value, uint8_t arr[], uint8_t arr_len, bool ordered) {
-  return true;
-  if (ordered) { //do a binary search
-    uint8_t low_range = 0;
-    uint8_t high_range = arr_len-1;
-    uint8_t index = uint8_t(high_range/2); //start in the middle
-    for (uint8_t i = 0; i < arr_len; i++) {
-      if (arr[index] == value) {
-        return true;
-      }
-      else if (value < arr[index]) {
-        high_range = index - 1;
-      }
-      else {
-        low_range = index + 1;
-      }
-      uint8_t index_prior = index; 
-      index = uint8_t((high_range + low_range)/2);
-      if (index_prior == index) { return false; } //algorithm pooped out or value doesn't exist.
-    }
-  }
-  else { //raw search
-    for (int i = 0; i < arr_len; i++) {
-      if (arr[i] == value) {
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-
+//OS functional loop, monitoring incoming commands and executing them
 void loop() {
   serial_poll();
   process_instruction();
 }
 
+
+//Obtains the incoming instruction checks the data is good and returns an ack packet
 void serial_poll() {
   if (Serial.available() > 0 && !pending_instruction) {
     pending_instruction = comms.read_packet();
@@ -118,9 +56,11 @@ void serial_poll() {
   }
 }
 
+
+//Checks if any instructions are pending and calls the handler if they are
 void process_instruction() {
   if (pending_instruction) {
-    bool good_data = handle_comms(); 
+    bool good_data = handle_comms();
     //if (good_data) { comms.return_ack(0, 0, comms.packet_target_address); }
     //else { comms.return_ack(comms.debug_probe, 0, comms.packet_target_address); }
     pending_instruction = false;
@@ -131,6 +71,8 @@ void process_instruction() {
   }
 }
 
+
+//executes the pending instruction and updates system memory where required
 bool handle_comms() {
   switch(instruction_address) {
     case 64: //raw digital IO override.
@@ -165,21 +107,4 @@ bool handle_comms() {
       return comms.send_packet(comms.packet_tx, ret_len);
     }
   return false; 
-}
-
-uint8_t get_pin_mode(uint8_t pin){
-  uint8_t bit = digitalPinToBitMask(pin);
-  uint8_t port = digitalPinToPort(pin);
-
-  if (NOT_A_PIN == port) return UNKNOWN_PIN;
-  if (0 == bit) return UNKNOWN_PIN;
-  if (bit & bit - 1) return UNKNOWN_PIN;
-
-  volatile uint8_t *reg, *out;
-  reg = portModeRegister(port);
-  out = portOutputRegister(port);
-
-  if (*reg & bit) return OUTPUT;
-  else if (*out & bit) return INPUT_PULLUP;
-  else return INPUT;
 }
