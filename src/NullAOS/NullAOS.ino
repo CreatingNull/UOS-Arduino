@@ -6,11 +6,11 @@
 
 const int hsc_key = 0; // Hardware software compatibility, increments with versions when new features become available.
 const uint8_t PIN_DEF[] = {2,3,4,5,6,7,8,9,10,11,12,13}; // Digital PINs mapped in this program
-uint8_t IO_def[] = {0,0,0,0,0,0}; // 0 is output 1 is input
-uint8_t IO_lvl[] = {0,1,1,1,1,1}; // the level on the pins 1 is High 0 is Low
-const uint8_t A_PIN_DEF[] = {A0,A1,A2,A3,A4,A5,A6}; // analogue pins mapped in this program
-uint8_t A_PIN_PULLUP[] = {0,0,0,0,0,0,0}; // analogue pin pullup state, 0 disabled, 1 enabled
-word A_PIN_STATES[] = {65535,65535,65535,65535,65535,65535,65535}; //the last read taken on the analogue pins, none / bad read is max word value
+uint8_t IO_def[] =        {1,1,1,1,1,1,1,1,1, 1, 1, 1}; // 0 is output 1 is input
+uint8_t IO_lvl[] =        {0,0,0,0,0,0,0,0,0, 0, 0, 0}; // the level on the pins 1 is High 0 is Low
+const uint8_t A_PIN_DEF[] = {A0,A1,A2,A3,A4,A5,A6,A7}; // analogue pins mapped in this program
+uint8_t A_PIN_PULLUP[] = {0,0,0,0,0,0,0,0}; // analogue pin pullup state, 0 disabled, 1 enabled
+word A_PIN_STATES[] = {65535,65535,65535,65535,65535,65535,65535,65535}; //the last read taken on the analogue pins, none / bad read is max word value
 const uint8_t home_address = 1;
 bool sys_ram_integrity = true;  
 bool pending_instruction = false; //has the system cleared the last instruction
@@ -36,6 +36,7 @@ void loop() {
 
 //Obtains the incoming instruction checks the data is good and returns an ack packet
 void serial_poll() {
+  //todo I think we should be doing an rough API vet / sanity check when the packet comes in rather than on execution
   if (Serial.available() > 0 && !pending_instruction) {
     pending_instruction = comms.read_packet();
     //take a deep copy of the instruction
@@ -69,42 +70,4 @@ void process_instruction() {
     //comms.flush_rx_buffer();
     sys_serial_backlog = false;
   }
-}
-
-
-//executes the pending instruction and updates system memory where required
-bool handle_comms() {
-  switch(instruction_address) {
-    case 64: //raw digital IO override.
-      if ((instruction_len % 3) != 0) { return false; } //the data is wrong
-      for (int i = 0; i < instruction_len/3; i++) {
-         if (!write_IO(              
-          instruction_payload[uint8_t(i*3)], 
-          instruction_payload[uint8_t(i*3+2)], 
-          instruction_payload[uint8_t(i*3+1)])) { return false; } //the system cant process the action
-      }
-      return true; //all actions completed successfully 
-    case 68: //reset IO from RAM
-      if (instruction_len == 0) { 
-         return reinit_io_from_ram();
-      }
-      return false;
-    case 85: //Sample Analog IO
-      byte payload[instruction_len*2];
-      for (int i=0; i < instruction_len; i++) {
-        if (instruction_payload[i] < 8) { // form payload 2*packet len bytes in little endian
-          A_PIN_STATES[instruction_payload[i]] = read_IO(instruction_payload[i], 1);
-          payload[2*i] = lowByte(A_PIN_STATES[instruction_payload[i]]);
-          payload[2*i+1] = highByte(A_PIN_STATES[instruction_payload[i]]);
-        }
-        else {
-          payload[2*i] = 255;
-          payload[2*i+1] = 255;
-        }
-      }
-      //ack is already sent so fire off the response packet now
-      uint8_t ret_len = comms.generate_packet_data(payload, instruction_len*2, 0, instruction_address, comms.packet_tx); 
-      return comms.send_packet(comms.packet_tx, ret_len);
-    }
-  return false; 
 }

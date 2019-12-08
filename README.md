@@ -5,14 +5,14 @@ using the Null Packet Comms Protocol.
 See the [official project documentation](https://nulltek.xyz/wiki/doku.php?id=uart_aos).
 
 **Recomended Versions:**
-* **0.0.1** - Functional development release, contains basic functionality but there are still a lot of features missing. 
+* **0.1.0** - Functional development release, contains basic functionality but there are still a lot of features missing. 
 
 It is recommended to use the latest stable release for deployment purposes. 
 Development versions may be buggy and have incomplete functionality. 
 
 ## Getting Started
 
-This operating system is optimised for Nano/Uno hardware, but it should work across multiple Arduino architectures, however pin mappings may change and the is no guarantee it will work.
+This operating system is optimised for ATMega328 hardware, but it should work across multiple Arduino architectures, however pin mappings may change and the is no guarantee of stability provided.
 
 It is recommended you use:
 * Arduino Nano

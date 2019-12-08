@@ -1,4 +1,4 @@
-//Description: UART Pin Level Functions
+//Description: UART Pin Level Functions, low level wrapper functions
 
 bool reinit_io_from_ram() {
   for (int i = 0; i < sizeof(PIN_DEF); i++) {
@@ -16,10 +16,20 @@ bool reinit_io_from_ram() {
 
 bool write_IO(uint8_t pin_index, uint8_t level, uint8_t io_type) {
   switch(io_type) {
-    case (0): //DIO output
-      if ((level == 0 || level == 1)){ //&& exists_in_byte_array(pin_index, DIO, DIO_LEN, true)) { 
+    case 0: //DIO output
+      if ((level == 0 || level == 1)){ //&& exists_in_byte_array(pin_index, DIO, DIO_LEN, true)) { //todo do we want to re-implement this or move it to the pre-vetting stage?
         if (get_pin_mode(pin_index) != OUTPUT) { pinMode(pin_index, OUTPUT); }; 
         digitalWrite(pin_index, level); 
+        return true;
+      }
+      break;
+    case 1: //DIO input
+      if (level == 0) { //input with pullup disabled
+        if (get_pin_mode(pin_index) != INPUT) { pinMode(pin_index, INPUT); }
+        return true;
+      }
+      else if (level == 1) { //input with pullup enabled
+        if (get_pin_mode(pin_index) != INPUT_PULLUP) { pinMode(pin_index, INPUT_PULLUP); }
         return true;
       }
       break;
@@ -30,9 +40,9 @@ bool write_IO(uint8_t pin_index, uint8_t level, uint8_t io_type) {
 
 int read_IO(uint8_t pin_index, uint8_t io_type) {
   switch(io_type) {
-    case(0): //DIO input
-      break;
-    case(1): //AIO input
+    case 0: //DIO input
+      return digitalRead(pin_index);
+    case 1: //AIO input
       return analogRead(pin_index);
   }
 }
