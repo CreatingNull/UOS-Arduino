@@ -6,14 +6,18 @@ bool handle_comms() {
     case 64: //raw digital IO override.
       if ((instruction_len % 3) != 0) { return false; } //the data is wrong
       for (int i = 0; i < instruction_len/3; i++) {
-         if (!write_IO(
-          instruction_payload[uint8_t(i*3)],
-          instruction_payload[uint8_t(i*3+2)],
-          instruction_payload[uint8_t(i*3+1)])) { return false; } //the system cant process the action
+          if (instruction_payload[uint8_t(i*3+1)] == 0) {  //DIO Output
+             if (!write_IO(
+              instruction_payload[uint8_t(i*3)],
+              instruction_payload[uint8_t(i*3+2)],
+              instruction_payload[uint8_t(i*3+1)])
+              ) { return false; } //the system cant process the action
+          }
+          else if (instruction_payload[uint8_t(i*3+1)] == 1) {  //DIO Input
+             return daq_instruction(1);
+          }
       }
       return true; //all actions completed successfully
-    case 65: //digital IO read
-      return daq_instruction(1);
     case 68: //reset IO from RAM
       if (instruction_len == 0) {
          return reinit_io_from_ram();
@@ -30,7 +34,10 @@ bool handle_comms() {
 bool daq_instruction(uint8_t daq_type) {
     uint8_t response_payload_len = instruction_len;
     if (daq_type==0) { //two byte result
-        response_payload_len = response_payload_len*2;
+        response_payload_len = response_payload_len*2;  //1 input bytes per pin
+    }
+    else if (daq_type==1) { //1 byte result
+        response_payload_len = uint8_t(response_payload_len/3); //3 input bytes per pin
     }
     byte payload[response_payload_len];
     switch(daq_type) { //populate the payload from the system

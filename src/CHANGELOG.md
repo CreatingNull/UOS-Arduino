@@ -1,7 +1,19 @@
 # UART-Arduino-Operating-System
+
 ## Formatted Change Log
+
 ***
-*Version: 0.1.0, Commit Date: 8-Dec-2019*
+#### *Version: 0.2.0, Release Date: 20-September-2020*
+
+*Note:*
+* Added a .gitignore to allow for the removal of build / temp files.
+* Removed binary files, repo should just contain source until a better deployment pipeline is developed. 
+* Fixed a mistake where DIO volatile input should have been handled on the same address 64 instead of 65.
+* Switched to MIT license for more permissive use. 
+***
+
+***
+#### *Version: 0.1.0, Release Date: 8-December-2019*
 
 *Note:*
 * Added a developer change log to allow for easy recording of changes as they are developed. 

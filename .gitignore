@@ -1,0 +1,7 @@
+# Exclude files not required in the git repo
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+Scratch/
+logs/
+*.log
+.idea/
