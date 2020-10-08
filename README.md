@@ -9,7 +9,7 @@ See the [official project documentation](https://nulltek.xyz/wiki/doku.php?id=ua
 
 **Recomended Versions:**
 
-*   **[0.2.0](https://github.com/CreatingNull/UART-Arduino-Operating-System/releases/tag/0.2.0)** - Functional development release, contains basic functionality but there are still a lot of features missing. 
+*   **[0.3.0](https://github.com/CreatingNull/UART-Arduino-Operating-System/releases/tag/0.3.0)** - Functional development release, contains basic functionality but there are still a lot of features missing. 
 
 It is recommended to use the latest stable release for deployment purposes. 
 Development versions may be buggy and have incomplete functionality. 
