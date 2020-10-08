@@ -1,4 +1,4 @@
-#![NullTek Documentation](resources/NullTekDocumentationLogo.png)UART - Arduino - Operating - System
+![NullTek Documentation](resources/NullTekDocumentationLogo.png)UART - Arduino - Operating - System
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE.md)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/29433b61b58d4841b29bf7957f6eb0e7)](https://www.codacy.com/gh/CreatingNull/UART-Arduino-Operating-System/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CreatingNull/UART-Arduino-Operating-System&amp;utm_campaign=Badge_Grade)
