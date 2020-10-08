@@ -66,7 +66,11 @@ bool daq_instruction(uint8_t daq_type) {
       }
       break;
     case 2:  // System Info
-      payload = [ VER_PATCH, VER_MINOR, VER_PATCH, Identity ]
+      payload[0] = VER_PATCH;
+      payload[1] = VER_MINOR;
+      payload[2] = VER_PATCH;
+      payload[3] = IDENTITY;
+      break;
   }
   // ack is already sent so fire off the response packet now
   uint8_t ret_len = comms.generate_packet_data(

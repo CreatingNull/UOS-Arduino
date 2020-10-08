@@ -3,12 +3,13 @@
 ## Formatted Change Log
 
 ***
-### *Version: 0.3.0, Release Date: TBC*
+### *Version: 0.3.0, Release Date: 8-October-2020*
 
 *Note:*
 *   Improved markdown formatting. 
 *   Moved LICENSE.md to root to match GH conventions. 
 *   Added version and device information as constants into the source.
+*   Added UOS command 250 for returning a version and hardware information packet.
 
 ***
 ### *Version: 0.2.0, Release Date: 20-September-2020*
