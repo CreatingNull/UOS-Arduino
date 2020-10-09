@@ -2,17 +2,11 @@
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE.md)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/29433b61b58d4841b29bf7957f6eb0e7)](https://www.codacy.com/gh/CreatingNull/UART-Arduino-Operating-System/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CreatingNull/UART-Arduino-Operating-System&amp;utm_campaign=Badge_Grade)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UART-Arduino-Operating-System)
 
 The UART AOS is a project that allows dynamic run-time control over embedded systems operation, 
 using the Null Packet Comms Protocol. 
 See the [official project documentation](https://nulltek.xyz/wiki/doku.php?id=uart_aos).
-
-**Recomended Versions:**
-
-*   **[0.3.0](https://github.com/CreatingNull/UART-Arduino-Operating-System/releases/tag/0.3.0)** - Functional development release, contains basic functionality but there are still a lot of features missing. 
-
-It is recommended to use the latest stable release for deployment purposes. 
-Development versions may be buggy and have incomplete functionality. 
 
 ## Getting Started
 
