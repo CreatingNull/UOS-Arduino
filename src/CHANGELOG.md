@@ -3,6 +3,16 @@
 ## Formatted Change Log
 
 ***
+### *Version: 0.4.0, Release Date: TBC
+
+*Note:*
+*   Removed outdated info from the original NPC library. 
+*   Removed redundant handling code from the top level.
+*   Fixed a hidden-bug with the major version in addr 250.
+*   Instantiated digital pins 0 and 1 as mapped by default.
+*   Added instruction 251 for querying config on digital pins.
+
+***
 ### *Version: 0.3.0, Release Date: 8-October-2020*
 
 *Note:*

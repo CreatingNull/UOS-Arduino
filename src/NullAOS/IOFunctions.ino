@@ -2,7 +2,7 @@
 
 bool reinit_io_from_ram() {
   for (int i = 0; i < sizeof(PIN_DEF); i++) {
-    if (!write_IO(PIN_DEF[i], IO_lvl[i], IO_def[i])) {
+    if (!write_IO(PIN_DEF[i], IO_STATES[i], IO_DEF[i])) {
       return false;
     }
   }
@@ -18,10 +18,8 @@ bool reinit_io_from_ram() {
 
 bool write_IO(uint8_t pin_index, uint8_t level, uint8_t io_type) {
   switch (io_type) {
-    case 0:                              // DIO output
-      if ((level == 0 || level == 1)) {  //&& exists_in_byte_array(pin_index,
-                                         //DIO, DIO_LEN, true)) { //todo do
-        // we want to re-implement this or move it to the pre-vetting stage?
+    case 0:  // DIO output
+      if ((level == 0 || level == 1)) {
         if (get_pin_mode(pin_index) != OUTPUT) {
           pinMode(pin_index, OUTPUT);
         };

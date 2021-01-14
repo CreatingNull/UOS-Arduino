@@ -28,21 +28,29 @@ bool handle_comms() {
       return daq_instruction(0);
     case 250:  // Return Device / Version Information
       return daq_instruction(2);
+    case 251:  // Return Digital Pin Infomation
+      return daq_instruction(3);
   }
   return false;
 }
 
-// Data Aq function, handling commands that have a return payload.
-// Types: 0 = Analogue Read, Type 1 = Digital Read, Type 2 = Device Identity.
+// Data Aquisition function, handling commands that have a return payload.
+// Type 0 = Analogue Read,
+// Type 1 = Digital Read
+// Type 2 = Device Identity
+// Type 3 = Digital Pin Config
 bool daq_instruction(uint8_t daq_type) {
   uint8_t response_payload_len = instruction_len;
-  if (daq_type == 0) {                                // two byte result
-    response_payload_len = response_payload_len * 2;  // 1 input bytes per pin
-  } else if (daq_type == 1) {                         // 1 byte result
+  if (daq_type == 0) {  // two byte result
     response_payload_len =
-        uint8_t(response_payload_len / 3);  // 3 input bytes per pin
+        response_payload_len * 2;  // 1 input byte has 2 output bytes
+  } else if (daq_type == 1) {      // 1 byte result
+    response_payload_len =
+        uint8_t(response_payload_len / 3);  // 3 input bytes per output byte
   } else if (daq_type == 2) {               // System Info
     response_payload_len = 4;               // PATCH . MINOR . MAJOR . DEVICE
+  } else if (daq_type == 3) {               // 1 input byte has 6 output bytes
+    response_payload_len = response_payload_len * 6;
   }
   byte payload[response_payload_len];
   switch (daq_type) {  // populate the payload from the system
@@ -68,8 +76,26 @@ bool daq_instruction(uint8_t daq_type) {
     case 2:  // System Info
       payload[0] = VER_PATCH;
       payload[1] = VER_MINOR;
-      payload[2] = VER_PATCH;
+      payload[2] = VER_MAJOR;
       payload[3] = IDENTITY;
+      break;
+    case 3:  // Digital Pin Config
+      for (int i = 0; i < instruction_len; i++) {
+        if (*portModeRegister(digitalPinToPort(instruction_payload[i])) &
+            digitalPinToBitMask(instruction_payload[i])) {  // check if output
+          payload[i * 6] = 0;
+        } else {  // Is an input
+          payload[i * 6] = 1;
+        }
+        payload[i * 6 + 1] =
+            digitalRead(instruction_payload[i]);              // check level
+        payload[i * 6 + 2] = IO_DEF[instruction_payload[i]];  // check ram mode
+        payload[i * 6 + 3] =
+            IO_STATES[instruction_payload[i]];          // check ram level
+        payload[i * 6 + 4] = EEPROM.read(100 + i * 2);  // check eeprom mode
+        payload[i * 6 + 4] =
+            EEPROM.read(100 + i * 2 + 1);  // check eeprom level
+      }
       break;
   }
   // ack is already sent so fire off the response packet now
