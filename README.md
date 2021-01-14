@@ -6,13 +6,14 @@
 
 The UART AOS is a project that allows dynamic run-time control over embedded systems operation, 
 using the Null Packet Comms Protocol. 
-See the [official project documentation](https://nulltek.xyz/wiki/doku.php?id=uart_aos).
+See the [official project documentation](https://wiki.nulltek.xyz/projects/uos/).
 
 ## Getting Started
 
-This operating system is optimised for ATMega328 hardware, but it should work across multiple Arduino architectures, however pin mappings may change and the is no guarantee of stability provided.
+This operating system is optimised for ATMega328P hardware. 
+It should work across multiple Arduino architectures, however pin mappings may change, and there is no guarantee of stability.
 
-It is recommended you use:
+It is tested on:
 *   Arduino Nano
 *   Arduino Uno 
 
@@ -28,32 +29,22 @@ This method is aimed at users familiar with the arduino IDE and / or users who n
 
 ***
 
-## Contributing
-
-If this project ever gets to any sort of usable state, it would be great to get any community additions.
-
 ### Built using
 
-*   [Arduino 1.8.13](https://github.com/arduino/Arduino) - Primary Compiler and IDE
-*   [Processing](https://processing.org/) - Operating System Loop / Handler Language
+*   [Arduino 1.8.13](https://github.com/arduino/Arduino) - Primary Compiler and IDE.
+*   [Processing](https://processing.org/) - Operating System Loop / Handler Language.
 *   [C++](https://isocpp.org/) - For the NPC serial communications libraries.
 
 This project uses: 
 
-*   clang-format to format it's C++ and C code using google styleing.
+*   clang-format to format it's C++ and C code using google styling.
     ``` sudo apt-get install clang-format ```
-
-***
-
-## Authors
-
-*   **Steve Richardson** - *Project Concept and Initial Development* - [CreatingNull](https://github.com/CreatingNull)
 
 ***
 
 ## Donations
 
-I just do this stuff for fun, but if you found any of my work helpful a little tip would be very much appreciated. 
+I just do this stuff for fun in my spare time, but feel free to:
 
 [![Support via buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/nulltek)
 
@@ -61,5 +52,5 @@ I just do this stuff for fun, but if you found any of my work helpful a little t
 
 ## License
 
-This repo uses the MIT open-source license, for details on the current licensing see LICENSE.md or click the badge above. 
-*   Copyright 2020 © <a href="https://nulltek.xyz" target="_blank">NullTek</a>.
+The source of this repo uses the MIT open-source license, for details on the current licensing see LICENSE.md or click the badge above. 
+*   Copyright 2021 © <a href="https://nulltek.xyz" target="_blank">NullTek</a>.
