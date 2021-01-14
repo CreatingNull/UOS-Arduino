@@ -35,8 +35,6 @@ class NullPacketComms {
 
  private:
   byte packet[32];
-  uint8_t __max_packet_length;
-  uint8_t __max_read_delay;
 };
 
 #endif
