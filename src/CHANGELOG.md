@@ -3,7 +3,7 @@
 ## Formatted Change Log
 
 ***
-### *Version: 0.4.0, Release Date: TBC
+### *Version: 0.4.0, Release Date: 18-January-2021*
 
 *Note:*
 *   Removed outdated info from the original NPC library. 
