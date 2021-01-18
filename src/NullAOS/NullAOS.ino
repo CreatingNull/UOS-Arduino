@@ -7,7 +7,7 @@
 #define VER_PATCH 0x00
 
 // Author: Steve Richardson
-// Software Name: NullAOS
+// Software Name: UOS
 // Description: UART Arduino operating system, top-level sketch.
 
 const int hsc_key = 0;  // Hardware software compatibility, increments with
@@ -79,7 +79,7 @@ void serial_poll() {
 // Checks if any instructions are pending and calls the handler if they are
 void process_instruction() {
   if (pending_instruction) {
-    bool good_data = handle_comms();
+    handle_comms();
     pending_instruction = false;
   }
 }

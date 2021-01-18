@@ -2,7 +2,6 @@
 
 bool exists_in_byte_array(uint8_t value, uint8_t arr[], uint8_t arr_len,
                           bool ordered) {
-  return true;    // todo see if we need to reintegrate this behaviour
   if (ordered) {  // do a binary search
     uint8_t low_range = 0;
     uint8_t high_range = arr_len - 1;

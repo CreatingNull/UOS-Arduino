@@ -92,9 +92,9 @@ bool daq_instruction(uint8_t daq_type) {
         payload[i * 6 + 2] = IO_DEF[instruction_payload[i]];  // check ram mode
         payload[i * 6 + 3] =
             IO_STATES[instruction_payload[i]];          // check ram level
-        payload[i * 6 + 4] = EEPROM.read(100 + i * 2);  // check eeprom mode
-        payload[i * 6 + 4] =
-            EEPROM.read(100 + i * 2 + 1);  // check eeprom level
+        payload[i * 6 + 4] = EEPROM.read(100 + instruction_payload[i] * 2);  // check eeprom mode
+        payload[i * 6 + 5] =
+            EEPROM.read(100 + instruction_payload[i] * 2 + 1);  // check eeprom level
       }
       break;
   }
