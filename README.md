@@ -1,12 +1,16 @@
-# ![NullTek Documentation](resources/NullTekDocumentationLogo.png) UOS Arduino
+# ![NullTek Documentation](resources/UOSLogoSmall.png) UOS Arduino
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE.md)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/29433b61b58d4841b29bf7957f6eb0e7)](https://www.codacy.com/gh/CreatingNull/UOS-Arduino/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CreatingNull/UOS-Arduino&amp;utm_campaign=Badge_Grade)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino)
 
-The UART AOS is a project that allows dynamic run-time control over embedded systems operation, 
-using the Null Packet Comms Protocol. 
+The arduino implementation of the UOS remote control protocol.
+This software allows run-time control over embedded systems operation. 
 See the [official project documentation](https://wiki.nulltek.xyz/projects/uos/).
+
+Status: Under active development, pre-release versions are available for testing.
+
+---
 
 ## Getting Started
 
@@ -27,7 +31,7 @@ This method is aimed at users familiar with the arduino IDE and / or users who n
 2.  Included in the source is a zipped library for serial communications, this needs to be added through the arduino IDE. 
 3.  Select the hardware and programming method through the IDE and then compile / upload the code to the target device. 
 
-***
+---
 
 ### Built using
 
@@ -40,7 +44,7 @@ This project uses:
 *   clang-format to format it's C++ and C code using google styling.
     ``` sudo apt-get install clang-format ```
 
-***
+---
 
 ## Donations
 
@@ -48,7 +52,7 @@ I just do this stuff for fun in my spare time, but feel free to:
 
 [![Support via buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/nulltek)
 
-***
+---
 
 ## License
 
