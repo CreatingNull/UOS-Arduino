@@ -1,4 +1,13 @@
-// Description: Purely a file that handles the API of the COMMs handler
+/*
+ *	UOS Arduino Firmware
+ *	See <https://wiki.nulltek.xyz/projects/uos/>
+ *
+ *	Copyright © 2022 Steve Richardson (Creating Null)
+ *	See LICENSE.md
+ *	<https://github.com/CreatingNull/UOS-Arduino/>
+ *
+ *	Handles the COMMs level API of UOS Project
+ */
 
 // executes the pending instruction and updates system memory where required
 bool handle_comms() {

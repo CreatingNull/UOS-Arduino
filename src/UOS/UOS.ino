@@ -1,14 +1,22 @@
+/*
+ *	UOS Arduino Firmware
+ *	See <https://wiki.nulltek.xyz/projects/uos/>
+ *
+ *	Copyright © 2022 Steve Richardson (Creating Null)
+ *	See LICENSE.md
+ *	<https://github.com/CreatingNull/UOS-Arduino/>
+ *
+ *	Top level sketch for the firmware.
+ */
+
 #include <EEPROM.h>
 #include <NullPacketComms.h>
 #define UNKNOWN_PIN 0xFF
 #define IDENTITY 0x00
 #define VER_MAJOR 0x00
-#define VER_MINOR 0x04
+#define VER_MINOR 0x05
 #define VER_PATCH 0x00
 
-// Author: Steve Richardson
-// Software Name: UOS
-// Description: UART Arduino operating system, top-level sketch.
 
 const int hsc_key = 0;  // Hardware software compatibility, increments with
                         // versions when new features become available.

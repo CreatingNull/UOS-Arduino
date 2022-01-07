@@ -1,4 +1,13 @@
-// Description: UART Pin Level Functions, low level wrapper functions
+/*
+ *	UOS Arduino Firmware
+ *	See <https://wiki.nulltek.xyz/projects/uos/>
+ *
+ *	Copyright © 2022 Steve Richardson (Creating Null)
+ *	See LICENSE.md
+ *	<https://github.com/CreatingNull/UOS-Arduino/>
+ *
+ *	Pin functions, low level wrapper functions.
+ */
 
 bool reinit_io_from_ram() {
   for (int i = 0; i < sizeof(PIN_DEF); i++) {

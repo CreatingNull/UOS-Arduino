@@ -1,3 +1,14 @@
+/*
+ *	UOS Arduino Firmware
+ *	See <https://wiki.nulltek.xyz/projects/uos/>
+ *
+ *	Copyright © 2022 Steve Richardson (Creating Null)
+ *	See LICENSE.md
+ *	<https://github.com/CreatingNull/UOS-Arduino/>
+ *
+ *	Helper algorithms and functions
+ */
+
 // Description: Helper Algorithms and Functions
 
 bool exists_in_byte_array(uint8_t value, uint8_t arr[], uint8_t arr_len,
