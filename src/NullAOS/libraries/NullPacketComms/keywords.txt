@@ -1,3 +1,0 @@
-NullPacketComms KEYWORD1
-get_buffer_size() KEYWORD2
-read_packet() KEYWORD2

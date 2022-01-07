@@ -8,7 +8,7 @@ The arduino implementation of the UOS remote control protocol.
 This software allows run-time control over embedded systems operation. 
 See the [official project documentation](https://wiki.nulltek.xyz/projects/uos/).
 
-Status: Under active development, pre-release versions are available for testing.
+Status: Under active development, unstable versions are available for testing.
 
 ---
 
@@ -28,21 +28,8 @@ For the best results.
 This method is aimed at users familiar with the arduino IDE and / or users who need to make modifications to the project.
 
 1.  Download the latest source from [tags](https://github.com//CreatingNull/UOS-Arduino/tags).
-2.  Included in the source is a zipped library for serial communications, this needs to be added through the arduino IDE. 
+2.  Include the latest [Null Packet Comms](https://github.com/CreatingNull/Null-Packet-Comms-Arduino) library. 
 3.  Select the hardware and programming method through the IDE and then compile / upload the code to the target device. 
-
----
-
-### Built using
-
-*   [Arduino 1.8.13](https://github.com/arduino/Arduino) - Primary Compiler and IDE.
-*   [Processing](https://processing.org/) - Operating System Loop / Handler Language.
-*   [C++](https://isocpp.org/) - For the NPC serial communications libraries.
-
-This project uses: 
-
-*   clang-format to format it's C++ and C code using google styling.
-    ``` sudo apt-get install clang-format ```
 
 ---
 
@@ -56,5 +43,4 @@ I just do this stuff for fun in my spare time, but feel free to:
 
 ## License
 
-The source of this repo uses the MIT open-source license, for details on the current licensing see LICENSE.md or click the badge above. 
-*   Copyright 2021 © <a href="https://nulltek.xyz" target="_blank">NullTek</a>.
+The source of this repo uses the MIT open-source license, for details on the current licensing see [LICENSE](LICENSE.md) or click the badge above.
