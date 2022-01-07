@@ -1,7 +1,7 @@
 # ![NullTek Documentation](resources/UOSLogoSmall.png) UOS Arduino
 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE.md)
-[![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square)](https://app.codacy.com/gh/CreatingNull/Null-Packet-Comms-Arduino/dashboard?branch=master)
+[![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square)](https://app.codacy.com/gh/CreatingNull/UOS-Arduino)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino?style=flat-square)
 
 The arduino implementation of the UOS remote control protocol.
