@@ -1,8 +1,8 @@
 # ![NullTek Documentation](resources/UOSLogoSmall.png) UOS Arduino
 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE.md)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/29433b61b58d4841b29bf7957f6eb0e7)](https://www.codacy.com/gh/CreatingNull/UOS-Arduino/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CreatingNull/UOS-Arduino&amp;utm_campaign=Badge_Grade)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino)
+[![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square)](https://app.codacy.com/gh/CreatingNull/Null-Packet-Comms-Arduino/dashboard?branch=master)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino?style=flat-square)
 
 The arduino implementation of the UOS remote control protocol.
 This software allows run-time control over embedded systems operation. 
