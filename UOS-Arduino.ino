@@ -17,7 +17,6 @@
 #define VER_MINOR 0x05
 #define VER_PATCH 0x00
 
-
 const int hsc_key = 0;  // Hardware software compatibility, increments with
                         // versions when new features become available.
 const uint8_t PIN_DEF[] = {
@@ -43,14 +42,14 @@ bool pending_instruction = false;  // has the system cleared the last
                                    // instruction
 uint8_t instruction_address = 255;
 uint8_t instruction_len = 0;
-uint8_t instruction_payload[24];
+uint8_t instruction_payload[58];
 bool sys_serial_backlog = false;
-NullPacketComms comms;
+NullPacketComms com = NullPacketComms();
 
 // configures the NPC serial port to start handling packets, re-initialises IO
 // to default state
 void setup() {
-  comms.init_port(115200, 32);
+  com.begin(115200);
   sys_ram_integrity = reinit_io_from_ram();
 }
 
@@ -65,22 +64,14 @@ void loop() {
 void serial_poll() {
   // todo I think we should be doing an rough API vet / sanity check when the
   // packet comes in rather than on execution
-  if (Serial.available() > 0 && !pending_instruction) {
-    pending_instruction = comms.read_packet();
+  if (com.available() > 0 && !pending_instruction) {
+    pending_instruction = com.readPacket();
     // take a deep copy of the instruction
-    instruction_address = comms.packet_target_address;
-    instruction_len = comms.packet_payload_len;
+    instruction_address = com.target_;
+    instruction_len = com.len_;
     for (int i = 0; i < instruction_len; i++) {
-      instruction_payload[i] = comms.packet_payload[i];
+      instruction_payload[i] = com.payload_[i];
     }
-    comms.flush_rx_buffer();
-    sys_serial_backlog = false;
-    if (!pending_instruction) {
-      comms.return_ack(1, 0, instruction_address);
-    }
-    comms.return_ack(0, 0, instruction_address);
-  } else {
-    sys_serial_backlog = true;
   }
 }
 

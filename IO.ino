@@ -60,6 +60,7 @@ int read_IO(uint8_t pin_index, uint8_t io_type) {
     case 1:  // AIO input
       return analogRead(pin_index);
   }
+  return -1;  // Error case
 }
 
 uint8_t get_pin_mode(uint8_t pin) {

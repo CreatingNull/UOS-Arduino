@@ -11,7 +11,7 @@
 
 // Description: Helper Algorithms and Functions
 
-bool exists_in_byte_array(uint8_t value, uint8_t arr[], uint8_t arr_len,
+bool exists_in_byte_array(uint8_t value, const uint8_t arr[], uint8_t arr_len,
                           bool ordered) {
   if (ordered) {  // do a binary search
     uint8_t low_range = 0;

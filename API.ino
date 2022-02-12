@@ -100,15 +100,16 @@ bool daq_instruction(uint8_t daq_type) {
             digitalRead(instruction_payload[i]);              // check level
         payload[i * 6 + 2] = IO_DEF[instruction_payload[i]];  // check ram mode
         payload[i * 6 + 3] =
-            IO_STATES[instruction_payload[i]];          // check ram level
-        payload[i * 6 + 4] = EEPROM.read(100 + instruction_payload[i] * 2);  // check eeprom mode
-        payload[i * 6 + 5] =
-            EEPROM.read(100 + instruction_payload[i] * 2 + 1);  // check eeprom level
+            IO_STATES[instruction_payload[i]];  // check ram level
+        payload[i * 6 + 4] =
+            EEPROM.read(100 + instruction_payload[i] * 2);  // check eeprom mode
+        payload[i * 6 + 5] = EEPROM.read(100 + instruction_payload[i] * 2 +
+                                         1);  // check eeprom level
       }
       break;
   }
   // ack is already sent so fire off the response packet now
-  uint8_t ret_len = comms.generate_packet_data(
-      payload, response_payload_len, 0, instruction_address, comms.packet_tx);
-  return comms.send_packet(comms.packet_tx, ret_len);
+  uint8_t ret_len =
+      com.writePacket(instruction_address, payload, response_payload_len);
+  return ret_len > 0;
 }

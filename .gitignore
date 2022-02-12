@@ -1,7 +1,31 @@
-# Exclude files not required in the git repo
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
-Scratch/
+# Log Files
 logs/
 *.log
+
+# Database Files
+*.db
+
+# Ignore built / packaged code
+dist/
+build/
+bin/
+
+# PyCharm Projects
 .idea/
+
+# VSCode projects
+*.code-workspace
+
+# Ignore sphinx build data
+docs/_build/
+docs/_static/
+docs/_templates/
+
+# Ignore dev virtual enviroment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
