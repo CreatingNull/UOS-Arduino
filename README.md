@@ -1,8 +1,8 @@
-# ![NullTek Documentation](resources/UOSLogoSmall.png) UOS Arduino
+# ![NullTek Documentation](https://github.com/CreatingNull/UOS-Arduino/blob/master/.resources/UOSLogoSmall.png) UOS Arduino
 
-[![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](LICENSE.md)
+[![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/blob/master/LICENSE.md)
 [![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square)](https://app.codacy.com/gh/CreatingNull/UOS-Arduino)
-![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino?style=flat-square)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/tags)
 
 The arduino implementation of the UOS remote control protocol.
 This software allows run-time control over embedded systems operation.
@@ -28,7 +28,7 @@ For the best results.
 This method is aimed at users familiar with the arduino IDE and / or users who need to make modifications to the project.
 
 1.  Download the latest source from [tags](https://github.com//CreatingNull/UOS-Arduino/tags).
-2.  Include the latest [Null Packet Comms](https://github.com/CreatingNull/Null-Packet-Comms-Arduino) library.
+2.  Add the latest [Null Packet Comms](https://github.com/CreatingNull/Null-Packet-Comms-Arduino) library.
 3.  Select the hardware and programming method through the IDE and then compile / upload the code to the target device.
 
 ---
@@ -43,4 +43,4 @@ I just do this stuff for fun in my spare time, but feel free to:
 
 ## License
 
-The source of this repo uses the MIT open-source license, for details on the current licensing see [LICENSE](LICENSE.md) or click the badge above.
+The source of this repo uses the MIT open-source license, for details on the current licensing see [LICENSE](https://github.com/CreatingNull/UOS-Arduino/blob/master/LICENSE.md) or click the badge above.
