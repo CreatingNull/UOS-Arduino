@@ -1,8 +1,9 @@
-# ![NullTek Documentation](https://github.com/CreatingNull/UOS-Arduino/blob/master/.resources/UOSLogoSmall.png) UOS Arduino
+# ![NullTek Documentation](https://raw.githubusercontent.com/CreatingNull/UOS-Arduino/main/.resources/UOSLogoSmall.png) UOS Arduino
 
-[![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/blob/master/LICENSE.md)
-[![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square)](https://app.codacy.com/gh/CreatingNull/UOS-Arduino)
+[![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/blob/main/LICENSE.md)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/tags)
+[![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square&label=quality)](https://app.codacy.com/gh/CreatingNull/UOS-Arduino/dashboard?branch=main)
+[![Pre-commit](https://img.shields.io/github/workflow/status/CreatingNull/UOS-Arduino/pre-commit?logo=pre-commit&style=flat-square&label=linting)](https://github.com/CreatingNull/UOS-Arduino/actions/workflows/run-pre-commit.yaml)
 
 The arduino implementation of the UOS remote control protocol.
 This software allows run-time control over embedded systems operation.
@@ -18,6 +19,7 @@ This operating system is optimised for ATMega328P hardware.
 It should work across multiple Arduino architectures, however pin mappings may change, and there is no guarantee of stability.
 
 It is tested on:
+
 *   Arduino Nano
 *   Arduino Uno
 
