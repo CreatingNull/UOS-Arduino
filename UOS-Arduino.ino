@@ -14,7 +14,7 @@
 #define UNKNOWN_PIN 0xFF
 #define IDENTITY 0x00
 #define VER_MAJOR 0x00
-#define VER_MINOR 0x06
+#define VER_MINOR 0x05
 #define VER_PATCH 0x00
 
 const int hsc_key = 0;  // Hardware software compatibility, increments with
