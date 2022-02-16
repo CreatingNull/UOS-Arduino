@@ -7,7 +7,7 @@
 
 The arduino implementation of the UOS remote control protocol.
 This software allows run-time control over embedded systems operation.
-See the [official project documentation](https://wiki.nulltek.xyz/projects/uos/).
+See the [official project documentation](https://wiki.nulltek.xyz/docs/projects/uos/).
 
 Status: Under active development, unstable versions are available for testing.
 
