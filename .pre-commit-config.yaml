@@ -28,7 +28,9 @@ repos:
         args: [-i, --style=Google]
 -   repo: https://github.com/CreatingNull/arduino-hooks
     # Note for the pre-commit GitHub workflow this executable must be added.
-    rev: v0.1.0
+    rev: v0.2.0
     hooks:
     -   id: arduino-lint
         args: [--fail-on-warn]
+    -   id: arduino-cli
+        args: ["--fqbn=arduino:avr:nano"]
