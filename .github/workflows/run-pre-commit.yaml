@@ -28,6 +28,7 @@ jobs:
         curl -fsSL https://raw.githubusercontent.com/arduino/arduino-lint/main/etc/install.sh | sh -s 1.2.0
         curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh -s 0.21.1
         bin/arduino-cli core install arduino:avr
+        bin/arduino-cli lib install NullPacketComms
         echo "${PWD}/bin/" >> $GITHUB_PATH
 
     - name: Run Pre-Commit
