@@ -29,23 +29,17 @@ bool write_IO(uint8_t pin_index, uint8_t level, uint8_t io_type) {
   switch (io_type) {
     case 0:  // DIO output
       if ((level == 0 || level == 1)) {
-        if (get_pin_mode(pin_index) != OUTPUT) {
-          pinMode(pin_index, OUTPUT);
-        };
+        pinMode(pin_index, OUTPUT);
         digitalWrite(pin_index, level);
         return true;
       }
       break;
     case 1:              // DIO input
       if (level == 0) {  // input with pullup disabled
-        if (get_pin_mode(pin_index) != INPUT) {
-          pinMode(pin_index, INPUT);
-        }
+        pinMode(pin_index, INPUT);
         return true;
       } else if (level == 1) {  // input with pullup enabled
-        if (get_pin_mode(pin_index) != INPUT_PULLUP) {
-          pinMode(pin_index, INPUT_PULLUP);
-        }
+        pinMode(pin_index, INPUT_PULLUP);
         return true;
       }
       break;
@@ -61,24 +55,4 @@ int read_IO(uint8_t pin_index, uint8_t io_type) {
       return analogRead(pin_index);
   }
   return -1;  // Error case
-}
-
-uint8_t get_pin_mode(uint8_t pin) {
-  uint8_t bit = digitalPinToBitMask(pin);
-  uint8_t port = digitalPinToPort(pin);
-
-  if (NOT_A_PIN == port) return UNKNOWN_PIN;
-  if (0 == bit) return UNKNOWN_PIN;
-  if (bit & bit - 1) return UNKNOWN_PIN;
-
-  volatile uint8_t *reg, *out;
-  reg = portModeRegister(port);
-  out = portOutputRegister(port);
-
-  if (*reg & bit)
-    return OUTPUT;
-  else if (*out & bit)
-    return INPUT_PULLUP;
-  else
-    return INPUT;
 }

@@ -34,3 +34,13 @@ repos:
         args: [--fail-on-warn]
     -   id: arduino-cli
         args: ["--fqbn=arduino:avr:nano"]
+        alias: "arduino-cli-nano"
+        name: "arduino-cli-nano"
+    -   id: arduino-cli
+        args: [ "--fqbn=arduino:avr:uno" ]
+        alias: "arduino-cli-uno"
+        name: "arduino-cli-uno"
+    -   id: arduino-cli
+        args: ["--fqbn=rp2040:rp2040:rpipico"]
+        alias: "arduino-cli-rpipico"
+        name: "arduino-cli-rpipico"

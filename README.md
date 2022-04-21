@@ -15,23 +15,15 @@ Status: Under active development, unstable versions are available for testing.
 
 ## Getting Started
 
-This operating system is optimised for ATMega328P hardware.
-It should work across multiple Arduino architectures, however pin mappings may change, and there is no guarantee of stability.
+This operating system is optimised for ATMega328P hardware, however other devices running an arduino bootloader can easily be added.
 
-It is tested on:
+Currently, there is support for:
 
-*   Arduino Nano
-*   Arduino Uno
+* Arduino Nano
+* Arduino Uno
+* Raspberry Pi Pico - Via the [arduino-pico](https://github.com/earlephilhower/arduino-pico) platform.
 
-For the best results.
-
-### Installing from Source
-
-This method is aimed at users familiar with the arduino IDE and / or users who need to make modifications to the project.
-
-1.  Download the latest source from [tags](https://github.com//CreatingNull/UOS-Arduino/tags).
-2.  Add the latest [Null Packet Comms](https://github.com/CreatingNull/Null-Packet-Comms-Arduino) library.
-3.  Select the hardware and programming method through the IDE and then compile / upload the code to the target device.
+For information on installing the firmware for your hardware see the [docs](https://wiki.nulltek.xyz/docs/projects/uos/arduino/).
 
 ---
 

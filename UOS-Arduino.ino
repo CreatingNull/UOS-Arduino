@@ -9,16 +9,19 @@
  *	Top level sketch for the firmware.
  */
 
+#include <Arduino.h>
 #include <EEPROM.h>
 #include <NullPacketComms.h>
 #define UNKNOWN_PIN 0xFF
 #define IDENTITY 0x00
-#define VER_MAJOR 0x00
-#define VER_MINOR 0x05
+#define VER_MAJOR 0x01
+#define VER_MINOR 0x00
 #define VER_PATCH 0x00
 
-const int hsc_key = 0;  // Hardware software compatibility, increments with
-                        // versions when new features become available.
+// Defining compile-time variations for supported hardware.
+
+#if defined(ARDUINO_AVR_NANO) || defined(ARDUINO_AVR_UNO)
+// Typical 328 Arduinos, uno, nano ect.
 const uint8_t PIN_DEF[] = {
     0, 1, 2, 3,  4,  5,  6,
     7, 8, 9, 10, 11, 12, 13};  // Digital PINs mapped in this program
@@ -36,6 +39,23 @@ word A_PIN_STATES[] = {
     65535, 65535, 65535, 65535, 65535,
     65535, 65535, 65535};  // the last read taken on the analogue pins, none /
                            // bad read is max word value
+#elif defined(ARDUINO_RASPBERRY_PI_PICO)
+// RP2040 RPI Pico
+#define NOT_A_PIN 0
+const uint8_t PIN_DEF[] = {0};     // Digital PINs mapped in this program
+uint8_t IO_DEF[] = {1};            // 0 is output 1 is input
+uint8_t IO_STATES[] = {0};         // the level on the pins 1 is High 0 is Low
+const uint8_t A_PIN_DEF[] = {A0};  // analogue pins mapped in this program
+uint8_t A_PIN_PULLUP[] = {
+    0};  // analogue pin pullup state, 0 disabled, 1 enabled
+word A_PIN_STATES[] = {65535};
+// don't compile for an unrecognised target as we have no idea on the hardware
+// requirements
+#endif
+
+const uint16_t api_version =
+    0;  // Increments when new features become available.
+
 const uint8_t home_address = 1;
 bool sys_ram_integrity = true;
 bool pending_instruction = false;  // has the system cleared the last
