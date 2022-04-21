@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
@@ -10,19 +10,20 @@ repos:
     -   id: mixed-line-ending
     -   id: check-case-conflict
     -   id: requirements-txt-fixer
+    -   id: detect-private-key
 -   repo: https://github.com/pocc/pre-commit-hooks
     rev: v1.3.5
     hooks:
     -   id: cppcheck
         args: [--language=c++]
 -   repo: https://github.com/cpplint/cpplint
-    rev: 1.5.5
+    rev: 1.6.0
     hooks:
     -   id: cpplint
         files: '.ino'
         args: [--root=src]
 -   repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v13.0.0
+    rev: v14.0.1
     hooks:
     -   id: clang-format
         args: [-i, --style=Google]
