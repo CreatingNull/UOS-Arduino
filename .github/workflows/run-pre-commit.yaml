@@ -34,4 +34,4 @@ jobs:
         echo "${PWD}/bin/" >> $GITHUB_PATH
 
     - name: Run Pre-Commit
-      uses: pre-commit/action@v2.0.3
+      uses: pre-commit/action@v3.0.0
