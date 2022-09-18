@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
     -   id: check-yaml
     -   id: end-of-file-fixer
@@ -17,16 +17,16 @@ repos:
     -   id: cppcheck
         args: [--language=c++]
 -   repo: https://github.com/cpplint/cpplint
-    rev: 1.6.0
+    rev: 1.6.1
     hooks:
     -   id: cpplint
         files: '.ino'
         args: [--root=src]
 -   repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v14.0.1
+    rev: v14.0.6
     hooks:
     -   id: clang-format
-        args: [-i, --style=Google]
+        args: ["--style=Google"]
 -   repo: https://github.com/CreatingNull/arduino-hooks
     # Note for the pre-commit GitHub workflow this executable must be added.
     rev: v0.2.0

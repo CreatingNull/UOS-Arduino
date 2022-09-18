@@ -25,8 +25,8 @@ jobs:
         pip install --upgrade pip wheel
         sudo apt-get update -y
         sudo apt-get install -y cppcheck
-        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-lint/main/etc/install.sh | sh -s 1.2.0
-        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh -s 0.21.1
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-lint/main/etc/install.sh | sh -s 1.2.1
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh -s 0.27.1
         bin/arduino-cli core update-index --additional-urls=https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
         bin/arduino-cli core install arduino:avr
         bin/arduino-cli core install rp2040:rp2040 --additional-urls=https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
