@@ -43,7 +43,7 @@ bool handle_comms() {
   return false;
 }
 
-// Data Aquisition function, handling commands that have a return payload.
+// Data Acquisition function, handling commands that have a return payload.
 // Type 0 = Analogue Read,
 // Type 1 = Digital Read
 // Type 2 = Device Identity
