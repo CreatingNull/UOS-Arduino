@@ -10,12 +10,13 @@
  */
 
 bool reinit_io_from_ram() {
-  for (int i = 0; i < sizeof(GPIO_PINS); i++) {
+  for (uint8_t i = 0; i < sizeof(GPIO_PINS); i++) {
     if (!write_io(GPIO_PINS[i], GPIO_PIN_STATES[i])) {
       return false;
     }
   }
-  for (int i = 0; i < sizeof(ADC_PINS); i++) {  // initialise the analog inputs
+  for (uint8_t i = 0; i < sizeof(ADC_PINS);
+       i++) {  // initialise the analog inputs
     if (ADC_PIN_STATES[i] == 1) {
       pinMode(ADC_PINS[i], INPUT_PULLUP);
     } else {

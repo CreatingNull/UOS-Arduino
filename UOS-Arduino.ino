@@ -56,7 +56,7 @@ void serial_poll() {
     // take a deep copy of the instruction
     instruction_address = com.target_;
     instruction_len = com.len_;
-    for (int i = 0; i < instruction_len; i++) {
+    for (uint8_t i = 0; i < instruction_len; i++) {
       instruction_payload[i] = com.payload_[i];
     }
   }
