@@ -10,44 +10,42 @@
  */
 
 bool reinit_io_from_ram() {
-  for (int i = 0; i < sizeof(PIN_DEF); i++) {
-    if (!write_IO(PIN_DEF[i], IO_STATES[i], IO_DEF[i])) {
+  for (int i = 0; i < sizeof(GPIO_PINS); i++) {
+    if (!write_io(GPIO_PINS[i], GPIO_PIN_STATES[i])) {
       return false;
     }
   }
-  for (int i = 0; i < sizeof(A_PIN_DEF); i++) {  // initialise the analog inputs
-    if (A_PIN_PULLUP[i] == 1) {
-      pinMode(A_PIN_DEF[i], INPUT_PULLUP);
+  for (int i = 0; i < sizeof(ADC_PINS); i++) {  // initialise the analog inputs
+    if (ADC_PIN_STATES[i] == 1) {
+      pinMode(ADC_PINS[i], INPUT_PULLUP);
     } else {
-      pinMode(A_PIN_DEF[i], INPUT);
+      pinMode(ADC_PINS[i], INPUT);
     }
   }
   return true;
 }
 
-bool write_IO(uint8_t pin_index, uint8_t level, uint8_t io_type) {
-  switch (io_type) {
-    case 0:  // DIO output
-      if ((level == 0 || level == 1)) {
-        pinMode(pin_index, OUTPUT);
-        digitalWrite(pin_index, level);
-        return true;
-      }
-      break;
-    case 1:              // DIO input
-      if (level == 0) {  // input with pullup disabled
-        pinMode(pin_index, INPUT);
-        return true;
-      } else if (level == 1) {  // input with pullup enabled
-        pinMode(pin_index, INPUT_PULLUP);
-        return true;
-      }
-      break;
+bool write_io(uint8_t pin_index, uint8_t state) {
+  switch (state) {
+    case GPIO_OUTPUT_LOW:
+      pinMode(pin_index, OUTPUT);
+      digitalWrite(pin_index, LOW);
+      return true;
+    case GPIO_OUTPUT_HIGH:
+      pinMode(pin_index, OUTPUT);
+      digitalWrite(pin_index, HIGH);
+      return true;
+    case GPIO_INPUT:
+      pinMode(pin_index, INPUT);
+      return true;
+    case GPIO_INPUT_PULLUP:
+      pinMode(pin_index, INPUT_PULLUP);
+      return true;
   }
   return false;
 }
 
-int read_IO(uint8_t pin_index, uint8_t io_type) {
+int read_io(uint8_t pin_index, uint8_t io_type) {
   switch (io_type) {
     case 0:  // DIO input
       return digitalRead(pin_index);

@@ -12,65 +12,33 @@
 #include <Arduino.h>
 #include <EEPROM.h>
 #include <NullPacketComms.h>
+
 #define UNKNOWN_PIN 0xFF
 #define IDENTITY 0x00
 #define VER_MAJOR 0x01
 #define VER_MINOR 0x00
 #define VER_PATCH 0x00
+#define API_VERSION 0
 
-// Defining compile-time variations for supported hardware.
+#define GPIO_OUTPUT_LOW 0
+#define GPIO_OUTPUT_HIGH 1
+#define GPIO_INPUT 2
+#define GPIO_INPUT_PULLUP 3
 
-#if defined(ARDUINO_AVR_NANO) || defined(ARDUINO_AVR_UNO)
-// Typical 328 Arduinos, uno, nano ect.
-const uint8_t PIN_DEF[] = {
-    0, 1, 2, 3,  4,  5,  6,
-    7, 8, 9, 10, 11, 12, 13};  // Digital PINs mapped in this program
-uint8_t IO_DEF[] = {1, 1, 1, 1, 1, 1, 1,
-                    1, 1, 1, 1, 1, 1, 1};  // 0 is output 1 is input
-uint8_t IO_STATES[] = {
-    0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0};  // the level on the pins 1 is High 0 is Low
-const uint8_t A_PIN_DEF[] = {
-    A0, A1, A2, A3, A4, A5, A6, A7};  // analogue pins mapped in this program
-uint8_t A_PIN_PULLUP[] = {
-    0, 0, 0, 0,
-    0, 0, 0, 0};  // analogue pin pullup state, 0 disabled, 1 enabled
-word A_PIN_STATES[] = {
-    65535, 65535, 65535, 65535, 65535,
-    65535, 65535, 65535};  // the last read taken on the analogue pins, none /
-                           // bad read is max word value
-#elif defined(ARDUINO_RASPBERRY_PI_PICO)
-// RP2040 RPI Pico
-#define NOT_A_PIN 0
-const uint8_t PIN_DEF[] = {0};     // Digital PINs mapped in this program
-uint8_t IO_DEF[] = {1};            // 0 is output 1 is input
-uint8_t IO_STATES[] = {0};         // the level on the pins 1 is High 0 is Low
-const uint8_t A_PIN_DEF[] = {A0};  // analogue pins mapped in this program
-uint8_t A_PIN_PULLUP[] = {
-    0};  // analogue pin pullup state, 0 disabled, 1 enabled
-word A_PIN_STATES[] = {65535};
-// don't compile for an unrecognised target as we have no idea on the hardware
-// requirements
-#endif
+bool pending_instruction = false;
+bool sys_serial_backlog = false;
 
-const uint16_t api_version =
-    0;  // Increments when new features become available.
-
-const uint8_t home_address = 1;
-bool sys_ram_integrity = true;
-bool pending_instruction = false;  // has the system cleared the last
-                                   // instruction
 uint8_t instruction_address = 255;
 uint8_t instruction_len = 0;
 uint8_t instruction_payload[58];
-bool sys_serial_backlog = false;
+
 NullPacketComms com = NullPacketComms();
 
 // configures the NPC serial port to start handling packets, re-initialises IO
 // to default state
 void setup() {
   com.begin(115200);
-  sys_ram_integrity = reinit_io_from_ram();
+  reinit_io_from_ram();
 }
 
 // OS functional loop, monitoring incoming commands and executing them
@@ -82,7 +50,6 @@ void loop() {
 // Obtains the incoming instruction checks the data is good and returns an ack
 // packet
 void serial_poll() {
-  // todo I think we should be doing an rough API vet / sanity check when the
   // packet comes in rather than on execution
   if (com.available() > 0 && !pending_instruction) {
     pending_instruction = com.readPacket();
