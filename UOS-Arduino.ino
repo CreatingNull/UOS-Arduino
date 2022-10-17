@@ -24,6 +24,7 @@
 #define GPIO_OUTPUT_HIGH 1
 #define GPIO_INPUT 2
 #define GPIO_INPUT_PULLUP 3
+#define ADC_UNUSED 4
 
 bool pending_instruction = false;
 bool sys_serial_backlog = false;

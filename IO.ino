@@ -27,6 +27,9 @@ bool reinit_io_from_ram() {
 }
 
 bool write_io(uint8_t pin_index, uint8_t state) {
+  if (!exists_in_sorted_array(pin_index, GPIO_PINS, sizeof(GPIO_PINS))) {
+    return false;
+  }
   switch (state) {
     case GPIO_OUTPUT_LOW:
       pinMode(pin_index, OUTPUT);
