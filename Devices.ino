@@ -15,6 +15,9 @@
 // GPIO_STATES - Defines the RAM reset states of the
 // pins.
 
+// ADC_PINS - DDefines a numerically sorted arrays with
+// the pin numbers for
+
 // Hardware definitions for Arduino Nano
 #if defined(ARDUINO_AVR_NANO) || defined(ARDUINO_AVR_UNO)
 const uint8_t GPIO_PINS[] = {2,  3,  4,  5,  6,  7,  8,  9,  10,
@@ -23,11 +26,20 @@ const uint8_t GPIO_PIN_STATES[] = {
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT,
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT,
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT};
+#if defined(ARDUINO_AVR_NANO)
 const uint8_t ADC_PINS[] = {0, 1, 2, 3, 4, 5, 6, 7};
+const uint8_t ADC_GPIO_ALIASING[] = {14, 15, 16, 17, 18, 19, 255, 255};
 const uint8_t ADC_PIN_STATES[] = {ADC_UNUSED, ADC_UNUSED, ADC_UNUSED,
                                   ADC_UNUSED, ADC_UNUSED, ADC_UNUSED,
                                   ADC_UNUSED, ADC_UNUSED, ADC_UNUSED};
-// Hardware definitions for Arduin Pico
+#elif defined(ARDUINO_AVR_UNO)  // 2x fewer ADC pins
+const uint8_t ADC_PINS[] = {0, 1, 2, 3, 4, 5};
+const uint8_t ADC_GPIO_ALIASING[] = {14, 15, 16, 17, 18, 19};
+const uint8_t ADC_PIN_STATES[] = {ADC_UNUSED, ADC_UNUSED, ADC_UNUSED,
+                                  ADC_UNUSED, ADC_UNUSED, ADC_UNUSED,
+                                  ADC_UNUSED};
+#endif
+// Hardware definitions for Arduino Pico
 #elif defined(ARDUINO_RASPBERRY_PI_PICO)
 const uint8_t GPIO_PINS[] = {};
 const uint8_t GPIO_PIN_STATES[] = {};
