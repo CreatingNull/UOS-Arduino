@@ -2,8 +2,7 @@
 
 [![License](https://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/blob/main/LICENSE.md)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/CreatingNull/UOS-Arduino?style=flat-square)](https://github.com/CreatingNull/UOS-Arduino/tags)
-[![Codacy grade](https://img.shields.io/codacy/grade/29433b61b58d4841b29bf7957f6eb0e7?logo=codacy&style=flat-square&label=quality)](https://app.codacy.com/gh/CreatingNull/UOS-Arduino/dashboard?branch=main)
-[![Pre-commit](https://img.shields.io/github/workflow/status/CreatingNull/UOS-Arduino/pre-commit?logo=pre-commit&style=flat-square&label=linting)](https://github.com/CreatingNull/UOS-Arduino/actions/workflows/run-pre-commit.yaml)
+[![Pre-commit](https://img.shields.io/github/actions/workflow/status/CreatingNull/UOS-Arduino/run-pre-commit.yaml?branch=main&logo=pre-commit&style=flat-square&label=linting)](https://github.com/CreatingNull/UOS-Arduino/actions/workflows/run-pre-commit.yaml)
 
 The arduino implementation of the UOS remote control protocol.
 This software allows run-time control over embedded systems operation.
