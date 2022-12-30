@@ -25,6 +25,11 @@
 #define GPIO_INPUT 2
 #define GPIO_INPUT_PULLUP 3
 #define ADC_UNUSED 4
+#define ADC_INPUT 5
+
+#define NO_PERSIST 0
+#define RAM_PERSIST 1
+#define EEPROM_PERSIST 2
 
 bool pending_instruction = false;
 bool sys_serial_backlog = false;

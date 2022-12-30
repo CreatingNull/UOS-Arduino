@@ -9,27 +9,23 @@
  *	Pin functions, low level wrapper functions.
  */
 
+// Resets IO state from the recorded states in RAM.
 bool reinit_io_from_ram() {
   for (uint8_t i = 0; i < sizeof(GPIO_PINS); i++) {
-    if (!write_io(GPIO_PINS[i], GPIO_PIN_STATES[i])) {
+    if (!write_io(GPIO_PINS[i], GPIO_PIN_STATES[i], NO_PERSIST)) {
       return false;
-    }
-  }
-  for (uint8_t i = 0; i < sizeof(ADC_PINS);
-       i++) {  // initialise the analog inputs
-    if (ADC_PIN_STATES[i] == 1) {
-      pinMode(ADC_PINS[i], INPUT_PULLUP);
-    } else {
-      pinMode(ADC_PINS[i], INPUT);
     }
   }
   return true;
 }
 
-bool write_io(uint8_t pin_index, uint8_t state) {
-  if (!exists_in_sorted_array(pin_index, GPIO_PINS, sizeof(GPIO_PINS))) {
-    return false;
-  }
+// Configures an io pin and sets its state.
+bool write_io(uint8_t pin_index, uint8_t state, uint8_t persist) {
+  uint8_t array_index =
+      find_in_sorted_array(pin_index, GPIO_PINS, sizeof(GPIO_PINS));
+  if (array_index == 255) return false;  // not valid pin
+  uint8_t prior_state = GPIO_PIN_STATES[array_index];
+  if (persist == RAM_PERSIST) GPIO_PIN_STATES[array_index] = state;
   switch (state) {
     case GPIO_OUTPUT_LOW:
       pinMode(pin_index, OUTPUT);
@@ -46,14 +42,17 @@ bool write_io(uint8_t pin_index, uint8_t state) {
       pinMode(pin_index, INPUT_PULLUP);
       return true;
   }
+  // Reset state as this is an error case.
+  if (persist == RAM_PERSIST) GPIO_PIN_STATES[pin_index] = prior_state;
   return false;
 }
 
-int read_io(uint8_t pin_index, uint8_t io_type) {
+// Reads the response from a configured input pin.
+int read_io(uint8_t pin_index, uint8_t io_type, uint8_t persist) {
   switch (io_type) {
-    case 0:  // DIO input
+    case GPIO_INPUT:  // DIO input
       return digitalRead(pin_index);
-    case 1:  // AIO input
+    case ADC_INPUT:  // AIO input
       return analogRead(pin_index);
   }
   return -1;  // Error case

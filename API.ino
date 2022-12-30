@@ -12,27 +12,33 @@
 // executes the pending instruction and updates system memory where required
 bool handle_comms() {
   switch (instruction_address) {
-    case 60:
-      // Set GPIO Output non-volatile.
-      return set_gpio_outputs();
+    case 70:
+      // Set GPIO Output and persists in RAM
+      return gpio_instruction(true, RAM_PERSIST);
+    case 71:
+      // Read GPIO Input and persists to RAM
+      return gpio_instruction(false, RAM_PERSIST);
   }
   return false;  // Unsupported instruction.
 }
 
-// Executes instructions for setting GPIO outputs.
-bool set_gpio_outputs() {  // 60
+// Executes instructions against GPIO.
+bool gpio_instruction(bool output, uint8_t persist) {  // 70, 71
   // Check the payload is correct length.
   if ((instruction_len % 2) != 0) return false;
   // Execute each instruction received.
-  for (int i = 0; i < instruction_len / 2; i++) {
+  for (uint8_t i = 0; i < instruction_len / 2; i++) {
+    uint8_t pin = instruction_payload[uint8_t(i * 2)];
     switch (instruction_payload[uint8_t(i * 2 + 1)]) {
       // Check the level byte
-      case 0:  // set low
-        if (!write_io(instruction_payload[uint8_t(i * 2)], GPIO_OUTPUT_LOW))
+      case 0:
+        if (output && !write_io(pin, GPIO_OUTPUT_LOW, persist))
+          // Failed setting GPIO output low
           return false;
         break;
       case 1:  // set high
-        if (!write_io(instruction_payload[uint8_t(i * 2)], GPIO_OUTPUT_HIGH))
+        if (output && !write_io(pin, GPIO_OUTPUT_HIGH, persist))
+          // Failed setting GPIO output high
           return false;
         break;
       default:
