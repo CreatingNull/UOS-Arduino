@@ -2,7 +2,7 @@
  *	UOS Arduino Firmware
  *	See <https://wiki.nulltek.xyz/projects/uos/>
  *
- *	Copyright © 2022 Steve Richardson (Creating Null)
+ *	Copyright © 2023 Steve Richardson (Creating Null)
  *	See LICENSE.md
  *	<https://github.com/CreatingNull/UOS-Arduino/>
  *
