@@ -12,6 +12,12 @@
 // executes the pending instruction and updates system memory where required
 bool handle_comms() {
   switch (instruction_address) {
+    case 60:
+      // Set GPIO Output and don't persist
+      return gpio_instruction(true, NO_PERSIST);
+    case 61:
+      // Read GPIO Input and don't persist
+      return gpio_instruction(false, NO_PERSIST);
     case 70:
       // Set GPIO Output and persists in RAM
       return gpio_instruction(true, RAM_PERSIST);
