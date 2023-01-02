@@ -11,7 +11,7 @@
 
 // executes the pending instruction and updates system memory where required
 bool handle_comms() {
-  switch (instruction_address) {
+  switch (instruction_address_) {
     case 60:
       // Set GPIO Output and don't persist
       return gpio_instruction(true, NO_PERSIST);
@@ -29,27 +29,41 @@ bool handle_comms() {
 }
 
 // Executes instructions against GPIO.
-bool gpio_instruction(bool output, uint8_t persist) {  // 70, 71
+bool gpio_instruction(bool output, uint8_t persist) {
   // Check the payload is correct length.
-  if ((instruction_len % 2) != 0) return false;
+  if ((instruction_len_ % 2) != 0) return false;
   // Execute each instruction received.
-  for (uint8_t i = 0; i < instruction_len / 2; i++) {
-    uint8_t pin = instruction_payload[uint8_t(i * 2)];
-    switch (instruction_payload[uint8_t(i * 2 + 1)]) {
+  for (uint8_t i = 0; i < instruction_len_ / 2; i++) {
+    uint8_t pin = instruction_payload_[uint8_t(i * 2)];
+    switch (instruction_payload_[uint8_t(i * 2 + 1)]) {
       // Check the level byte
       case 0:
         if (output && !write_io(pin, GPIO_OUTPUT_LOW, persist))
           // Failed setting GPIO output low
           return false;
+        else if (!output) {  // Input operation no pullup.
+          int level = read_io(pin, GPIO_INPUT, persist);
+          if (level == -1) return false;  // failed read
+          byte payload[1] = {lowByte(level)};
+          if (com_.writePacket(instruction_address_, payload, 1) < 2)
+            return false;
+        }
         break;
       case 1:  // set high
         if (output && !write_io(pin, GPIO_OUTPUT_HIGH, persist))
           // Failed setting GPIO output high
           return false;
+        else if (!output) {  // Input operation pullup enabled.
+          int level = read_io(pin, GPIO_INPUT_PULLUP, persist);
+          if (level == -1) return false;  // failed read
+          byte payload[1] = {lowByte(level)};
+          if (com_.writePacket(instruction_address_, payload, 1) < 2)
+            return false;
+        }
         break;
       default:
         return false;  // instruction not formed correctly
     }
   }
-  return false;
+  return true;  // All commands executed successfully.
 }
