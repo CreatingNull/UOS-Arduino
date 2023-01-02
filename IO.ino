@@ -10,7 +10,7 @@
  */
 
 // Resets IO state from the recorded states in RAM.
-bool reinit_io_from_ram() {
+bool init_io_from_ram() {
   for (uint8_t i = 0; i < sizeof(GPIO_PINS); i++) {
     if (!write_io(GPIO_PINS[i], GPIO_PIN_STATES[i], NO_PERSIST)) {
       return false;

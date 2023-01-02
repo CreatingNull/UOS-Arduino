@@ -24,6 +24,9 @@ bool handle_comms() {
     case 71:
       // Read GPIO Input and persists to RAM
       return gpio_instruction(false, RAM_PERSIST);
+    case 79:
+      // Reset IO from RAM.
+      return init_io_from_ram();
   }
   return false;  // Unsupported instruction.
 }

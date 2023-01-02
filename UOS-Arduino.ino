@@ -43,7 +43,7 @@ NullPacketComms com_ = NullPacketComms();
 // to default state
 void setup() {
   com_.begin(115200);
-  reinit_io_from_ram();
+  init_io_from_ram();
 }
 
 // OS functional loop, monitoring incoming commands and executing them
