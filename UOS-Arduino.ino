@@ -13,11 +13,10 @@
 #include <EEPROM.h>
 #include <NullPacketComms.h>
 
-#define UNKNOWN_PIN 0xFF
-#define IDENTITY 0x00
-#define VER_MAJOR 0x01
-#define VER_MINOR 0x00
-#define VER_PATCH 0x00
+#define IDENTITY 0
+#define VER_MAJOR 0
+#define VER_MINOR 5
+#define VER_PATCH 0
 #define API_VERSION 0
 
 #define GPIO_OUTPUT_LOW 0

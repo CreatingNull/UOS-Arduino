@@ -42,8 +42,9 @@ bool handle_comms() {
 
 // Returns the firmware details as a packet.
 bool firmware_details() {
-  // [PATCH][MINOR][MAJOR][DEVICE]
-  byte response_payload[4] = {VER_PATCH, VER_MINOR, VER_MAJOR, IDENTITY};
+  // [PATCH][MINOR][MAJOR][DEVICE][API]
+  byte response_payload[5] = {VER_PATCH, VER_MINOR, VER_MAJOR, IDENTITY,
+                              API_VERSION};
   if (com_.writePacket(instruction_address_, response_payload,
                        sizeof(response_payload)) < 4)
     return false;
