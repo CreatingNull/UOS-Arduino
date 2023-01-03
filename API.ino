@@ -28,9 +28,26 @@ bool handle_comms() {
       // Reset IO from RAM.
       return init_io_from_ram();
     case 90:
+      // Sample ADC with pullup disabled
       return adc_instruction(false);
+    case 91:
+      // Sample ADC with pullup enabled.
+      return adc_instruction(true);
+    case 250:
+      // Get Firmware Details.
+      return firmware_details();
   }
   return false;  // Unsupported instruction.
+}
+
+// Returns the firmware details as a packet.
+bool firmware_details() {
+  // [PATCH][MINOR][MAJOR][DEVICE]
+  byte response_payload[4] = {VER_PATCH, VER_MINOR, VER_MAJOR, IDENTITY};
+  if (com_.writePacket(instruction_address_, response_payload,
+                       sizeof(response_payload)) < 4)
+    return false;
+  return true;
 }
 
 // executes ADC reads are returns the response packet.
