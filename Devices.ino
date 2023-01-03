@@ -15,8 +15,10 @@
 // GPIO_STATES - Defines the RAM reset states of the
 // pins.
 
-// ADC_PINS - DDefines a numerically sorted arrays with
-// the pin numbers for
+// ADC_PINS - Defines a alias sorted arrays with
+// the pin numbers for adc pins.
+// The position of the pin in the array should match
+// the alias index. Eg: A1 should be ADC_PINS[1]
 
 // Hardware definitions for Arduino Nano
 #if defined(ARDUINO_AVR_NANO)
@@ -27,7 +29,6 @@ uint8_t GPIO_PIN_STATES[] = {
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT,
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT};
 const uint8_t ADC_PINS[] = {A0, A1, A2, A3, A4, A5, A6, A7};
-const uint8_t ADC_GPIO_ALIASING[] = {14, 15, 16, 17, 18, 19, 255, 255};
 
 // Hardware definitions for Arduino Uno
 #elif defined(ARDUINO_AVR_UNO)  // 2x fewer ADC pins
@@ -38,14 +39,12 @@ uint8_t GPIO_PIN_STATES[] = {
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT,
     GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT, GPIO_INPUT};
 const uint8_t ADC_PINS[] = {A0, A1, A2, A3, A4, A5};
-const uint8_t ADC_GPIO_ALIASING[] = {14, 15, 16, 17, 18, 19};
 
 // Hardware definitions for Arduino Pico
 #elif defined(ARDUINO_RASPBERRY_PI_PICO)
 const uint8_t GPIO_PINS[] = {};
 uint8_t GPIO_PIN_STATES[] = {};
 const uint8_t ADC_PINS[] = {};
-const uint8_t ADC_GPIO_ALIASING[] = {};
 
 #endif
 // Dont compile for an undefined target as we have

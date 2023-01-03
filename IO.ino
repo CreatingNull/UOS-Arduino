@@ -55,13 +55,15 @@ bool write_io(uint8_t pin_index, uint8_t state, uint8_t persist) {
 // Reads the response from a configured input pin.
 int read_io(uint8_t pin_index, uint8_t state, uint8_t persist) {
   // First configure any pin modes.
-  if (!write_io(pin_index, state, persist)) return false;
+  if (!write_io(pin_index, state, persist)) return -1;
   switch (state) {
     case GPIO_INPUT:  // DIO input
       return digitalRead(pin_index);
     case GPIO_INPUT_PULLUP:
       return digitalRead(pin_index);
     case ADC_INPUT:  // AIO input
+      return analogRead(pin_index);
+    case ADC_INPUT_PULLUP:
       return analogRead(pin_index);
   }
   return -1;  // Error case
@@ -77,8 +79,8 @@ bool persist_state(uint8_t pin_index, uint8_t state, uint8_t persist) {
     if (array_index == 255) return false;  // pin not found
     if (persist == RAM_PERSIST) {
       // look up the aliased GPIO pin index if it exists
-      uint8_t alias_index = find_in_sorted_array(ADC_GPIO_ALIASING[array_index],
-                                                 GPIO_PINS, sizeof(GPIO_PINS));
+      uint8_t alias_index =
+          find_in_sorted_array(pin_index, GPIO_PINS, sizeof(GPIO_PINS));
       // you can't persist on analog pins without a GPIO alias.
       if (alias_index == 255) return false;
       GPIO_PIN_STATES[alias_index] = state;

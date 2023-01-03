@@ -27,14 +27,39 @@ bool handle_comms() {
     case 79:
       // Reset IO from RAM.
       return init_io_from_ram();
+    case 90:
+      return adc_instruction(false);
   }
   return false;  // Unsupported instruction.
 }
 
-// Executes instructions against GPIO.
+// executes ADC reads are returns the response packet.
+bool adc_instruction(bool pullup_enabled) {
+  // Check the payload is correct length
+  if (instruction_len_ == 0) return false;
+  // Figure out the size of the response payload
+  uint8_t response_payload_len = (uint8_t)instruction_len_ * 2;
+  uint8_t response_payload[response_payload_len];
+  for (uint8_t i = 0; i < instruction_len_; i++) {
+    uint8_t pin = instruction_payload_[i];
+    int level =
+        read_io(pin, pullup_enabled ? ADC_INPUT_PULLUP : ADC_INPUT, NO_PERSIST);
+    if (level == -1) return false;
+    response_payload[2 * i] = lowByte(level);
+    response_payload[2 * i + 1] = highByte(level);
+  }
+  if (com_.writePacket(instruction_address_, response_payload,
+                       response_payload_len) < 4)
+    return false;
+  return true;
+}
+
+// Executes instructions against GPIO, returns response packet if required.
 bool gpio_instruction(bool output, uint8_t persist) {
   // Check the payload is correct length.
-  if ((instruction_len_ % 2) != 0) return false;
+  if ((instruction_len_ % 2) != 0 || instruction_len_ == 0) return false;
+  // Response payload for input instructions.
+  byte response_payload[instruction_len_];
   // Execute each instruction received.
   for (uint8_t i = 0; i < instruction_len_ / 2; i++) {
     uint8_t pin = instruction_payload_[uint8_t(i * 2)];
@@ -47,9 +72,7 @@ bool gpio_instruction(bool output, uint8_t persist) {
         else if (!output) {  // Input operation no pullup.
           int level = read_io(pin, GPIO_INPUT, persist);
           if (level == -1) return false;  // failed read
-          byte payload[1] = {lowByte(level)};
-          if (com_.writePacket(instruction_address_, payload, 1) < 2)
-            return false;
+          response_payload[i] = lowByte(level);
         }
         break;
       case 1:  // set high
@@ -59,14 +82,15 @@ bool gpio_instruction(bool output, uint8_t persist) {
         else if (!output) {  // Input operation pullup enabled.
           int level = read_io(pin, GPIO_INPUT_PULLUP, persist);
           if (level == -1) return false;  // failed read
-          byte payload[1] = {lowByte(level)};
-          if (com_.writePacket(instruction_address_, payload, 1) < 2)
-            return false;
+          response_payload[i] = lowByte(level);
         }
         break;
       default:
         return false;  // instruction not formed correctly
     }
   }
+  if (!output && com_.writePacket(instruction_address_, response_payload,
+                                  instruction_len_) < 4)
+    return false;
   return true;  // All commands executed successfully.
 }
