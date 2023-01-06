@@ -77,7 +77,7 @@ bool gpio_instruction(bool output, uint8_t persist) {
   // Check the payload is correct length.
   if ((instruction_len_ % 2) != 0 || instruction_len_ == 0) return false;
   // Response payload for input instructions.
-  byte response_payload[instruction_len_];
+  byte response_payload[instruction_len_ / 2];
   // Execute each instruction received.
   for (uint8_t i = 0; i < instruction_len_ / 2; i++) {
     uint8_t pin = instruction_payload_[uint8_t(i * 2)];
@@ -87,17 +87,17 @@ bool gpio_instruction(bool output, uint8_t persist) {
         if (output && !write_io(pin, GPIO_OUTPUT_LOW, persist))
           // Failed setting GPIO output low
           return false;
-        else if (!output) {  // Input operation no pullup.
+        else if (!output) {  // Input operation no pull-up.
           int level = read_io(pin, GPIO_INPUT, persist);
           if (level == -1) return false;  // failed read
           response_payload[i] = lowByte(level);
         }
         break;
-      case 1:  // set high
+      case 1:
         if (output && !write_io(pin, GPIO_OUTPUT_HIGH, persist))
           // Failed setting GPIO output high
           return false;
-        else if (!output) {  // Input operation pullup enabled.
+        else if (!output) {  // Input operation pull-up enabled.
           int level = read_io(pin, GPIO_INPUT_PULLUP, persist);
           if (level == -1) return false;  // failed read
           response_payload[i] = lowByte(level);
@@ -108,7 +108,7 @@ bool gpio_instruction(bool output, uint8_t persist) {
     }
   }
   if (!output && com_.writePacket(instruction_address_, response_payload,
-                                  instruction_len_) < 4)
+                                  sizeof(response_payload)) < 4)
     return false;
   return true;  // All commands executed successfully.
 }
