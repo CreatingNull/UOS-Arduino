@@ -11,3 +11,4 @@ Version 0.6.0
 * Remove non-binary search array lookup as all our definition arrays will be sorted.
 * Fixing the arduino uno definition. This device has fewer ADC pins than the nano.
 * Set globals to use a tailing underscore for convention to differentiate them from locals.
+* Fixed a bug where switching from output high state to input would leave pull-ups enabled.

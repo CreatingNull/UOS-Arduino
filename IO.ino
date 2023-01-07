@@ -35,6 +35,7 @@ bool write_io(uint8_t pin_index, uint8_t state, uint8_t persist) {
     case GPIO_INPUT:
       if (!persist_state(pin_index, state, persist)) return false;
       pinMode(pin_index, INPUT);
+      digitalWrite(pin_index, LOW);  // Disable pull-up if enabled
       return true;
     case GPIO_INPUT_PULLUP:
       if (!persist_state(pin_index, state, persist)) return false;
@@ -43,6 +44,7 @@ bool write_io(uint8_t pin_index, uint8_t state, uint8_t persist) {
     case ADC_INPUT:
       if (!persist_state(pin_index, state, persist)) return false;
       pinMode(pin_index, INPUT);
+      digitalWrite(pin_index, LOW);  // Disable pull-up if enabled
       return true;
     case ADC_INPUT_PULLUP:
       if (!persist_state(pin_index, state, persist)) return false;
