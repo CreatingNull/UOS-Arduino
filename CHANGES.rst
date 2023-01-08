@@ -1,7 +1,7 @@
 Version 0.6.0
 -------------
 
-:Date: TBC
+:Date: 8-January-2023
 
 * Updating for redesigned UOS protocol.
 * Redesigned the supported device hardware to be defined in a more concise manner.
