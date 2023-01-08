@@ -31,11 +31,9 @@ repos:
 -   repo: https://github.com/PyCQA/pylint
     rev: v2.15.9
     hooks:
-    # Pylint is also run from within pre-commit for CI purposes.
     -   id: pylint
         args: [
             '--disable=E0401',  # Ignore imports when not running in a local env.
-            '--ignore=conf.py',  # Ignore the sphinx config as this is used by an external tool.
         ]
 
 # CPPCheck is a useful static linter for detecting bugs.
