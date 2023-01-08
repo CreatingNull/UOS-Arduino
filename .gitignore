@@ -21,6 +21,9 @@ docs/_build/
 docs/_static/
 docs/_templates/
 
+# Ignore pytest cache
+.pytest_cache/
+
 # Ignore dev virtual enviroment
 .env
 .venv

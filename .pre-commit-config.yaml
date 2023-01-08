@@ -13,6 +13,31 @@ repos:
     -   id: check-case-conflict
     -   id: requirements-txt-fixer
 
+# Sorts python imports used in system tests.
+-   repo: https://github.com/PyCQA/isort
+    # Note - on black update blacken-docs pin should also be updated.
+    rev: 5.11.4
+    hooks:
+    -   id: isort
+        args: ['--profile=black']
+
+# Code formatter for systems test python code.
+-   repo: https://github.com/psf/black
+    rev: 22.12.0
+    hooks:
+    -   id: black
+
+# Lint python code in system tests.
+-   repo: https://github.com/PyCQA/pylint
+    rev: v2.15.9
+    hooks:
+    # Pylint is also run from within pre-commit for CI purposes.
+    -   id: pylint
+        args: [
+            '--disable=E0401',  # Ignore imports when not running in a local env.
+            '--ignore=conf.py',  # Ignore the sphinx config as this is used by an external tool.
+        ]
+
 # CPPCheck is a useful static linter for detecting bugs.
 -   repo: https://github.com/pocc/pre-commit-hooks
     rev: v1.3.5
