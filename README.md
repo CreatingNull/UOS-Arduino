@@ -5,10 +5,10 @@
 [![Pre-commit](https://img.shields.io/github/actions/workflow/status/CreatingNull/UOS-Arduino/run-pre-commit.yaml?branch=main&logo=pre-commit&style=flat-square&label=linting)](https://github.com/CreatingNull/UOS-Arduino/actions/workflows/run-pre-commit.yaml)
 
 The arduino implementation of the UOS remote control protocol.
-This software allows run-time control over embedded systems operation.
+This software allows run-time control over embedded systems operation using the UART interface.
 See the [official project documentation](https://wiki.nulltek.xyz/docs/projects/uos/).
 
-Status: Under active development, unstable versions are available for testing.
+
 
 ---
 
@@ -26,14 +26,12 @@ For information on installing the firmware for your hardware see the [docs](http
 
 ---
 
-## Donations
+## License
+
+The source of this repo uses the MIT open-source license, for details on the current licensing see [LICENSE](https://github.com/CreatingNull/UOS-Arduino/blob/master/LICENSE.md) or click the badge above.
+
+---
 
 I just do this stuff for fun in my spare time, but feel free to:
 
 [![Support via buymeacoffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/nulltek)
-
----
-
-## License
-
-The source of this repo uses the MIT open-source license, for details on the current licensing see [LICENSE](https://github.com/CreatingNull/UOS-Arduino/blob/master/LICENSE.md) or click the badge above.
