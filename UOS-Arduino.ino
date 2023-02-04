@@ -19,12 +19,19 @@
 #define VER_PATCH 0
 #define API_VERSION 0
 
-#define GPIO_OUTPUT_LOW 0
-#define GPIO_OUTPUT_HIGH 1
-#define GPIO_INPUT 2
-#define GPIO_INPUT_PULLUP 3
-#define ADC_INPUT 4
-#define ADC_INPUT_PULLUP 5
+// Pin States
+// Additional States should be added to IO.check_pin_support
+#define IO_NONE 0
+#define GPIO_OUTPUT_LOW 1
+#define GPIO_OUTPUT_HIGH 2
+#define GPIO_INPUT 3
+#define GPIO_INPUT_PULLUP 4
+#define ADC_INPUT 5
+#define ADC_INPUT_PULLUP 6
+// PIN Specs
+#define SPEC_GPIO_OUTPUT 0x01
+#define SPEC_GPIO_INPUT 0x02
+#define SPEC_ADC_INPUT 0x04
 
 #define NO_PERSIST 0
 #define RAM_PERSIST 1

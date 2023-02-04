@@ -1,3 +1,13 @@
+Version 0.7.0
+-------------
+
+:Date: TBC
+
+* Restructuring device definition to capture pin indices, state and specs.
+  This allows the device to communicate its capabilities.
+* Adding the ``IO_NONE`` state to allow for ignoring pins.
+* Sanity check pin compatibility before executing IO actions.
+
 Version 0.6.0
 -------------
 
