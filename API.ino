@@ -42,9 +42,9 @@ bool handle_comms() {
 
 // Returns the firmware details as a packet.
 bool firmware_details() {
-  // [PATCH][MINOR][MAJOR][DEVICE][API]
-  byte response_payload[5] = {VER_PATCH, VER_MINOR, VER_MAJOR, IDENTITY,
-                              API_VERSION};
+  // [PATCH][MINOR][MAJOR][unit16_t API][uint16_t DEVICE]
+  byte response_payload[7] = {VER_PATCH, VER_MINOR, VER_MAJOR, API_VERSION,
+                              0,         IDENTITY,  0};
   if (com_.writePacket(instruction_address_, response_payload,
                        sizeof(response_payload)) < 4)
     return false;
@@ -63,6 +63,7 @@ bool adc_instruction(bool pullup_enabled) {
     int level =
         read_io(pin, pullup_enabled ? ADC_INPUT_PULLUP : ADC_INPUT, NO_PERSIST);
     if (level == -1) return false;
+    // Little Endian
     response_payload[2 * i] = lowByte(level);
     response_payload[2 * i + 1] = highByte(level);
   }

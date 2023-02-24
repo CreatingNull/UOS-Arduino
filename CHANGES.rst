@@ -7,6 +7,10 @@ Version 0.7.0
   This allows the device to communicate its capabilities.
 * Adding the ``IO_NONE`` state to allow for ignoring pins.
 * Sanity check pin compatibility before executing IO actions.
+* Adding a systems test case against the get_firmware_details functionality.
+* Updating firmware_details command to use 2 byte identity and API version codes.
+* Setting identities based on device.
+* Changed ``Devices.ino`` definitions to be a header file so we can mandate the import order.
 
 Version 0.6.0
 -------------

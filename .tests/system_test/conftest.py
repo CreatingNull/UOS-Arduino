@@ -20,7 +20,8 @@ def test_device(request) -> UOSDevice:
     device_port = request.config.option.port
     if device_port is None:
         pytest.skip(
-            "To run the system test suite you must define the port of the connected device."
+            "To run the system test suite you must define the "
+            "port of the connected device (`--port`)."
         )
     with UOSDevice(
         identity=Devices.arduino_nano,

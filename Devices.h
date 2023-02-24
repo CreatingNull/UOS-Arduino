@@ -9,6 +9,29 @@
  *  Supported device compile-time configurations.
  */
 
+#ifndef DEVICES_H
+#define DEVICES_H
+
+// Pin States
+// Additional States should be added to IO.check_pin_support
+#define IO_NONE 0
+#define GPIO_OUTPUT_LOW 1
+#define GPIO_OUTPUT_HIGH 2
+#define GPIO_INPUT 3
+#define GPIO_INPUT_PULLUP 4
+#define ADC_INPUT 5
+#define ADC_INPUT_PULLUP 6
+// PIN Specs
+#define SPEC_GPIO_OUTPUT 0x01
+#define SPEC_GPIO_INPUT 0x02
+#define SPEC_ADC_INPUT 0x04
+
+#define NO_PERSIST 0
+#define RAM_PERSIST 1
+#define EEPROM_PERSIST 2
+
+// IDENTITY - The standardised UOS Identity.
+
 // PINS - Defines a numerically sorted array with
 // the pins numbers available.
 
@@ -28,6 +51,7 @@
 
 // Hardware definitions for Arduino Nano
 #if defined(ARDUINO_AVR_NANO)
+const uint8_t IDENTITY = 1;
 const uint8_t PINS[] = {2,  3,  4,  5,  6,  7,  8,  9,  10, 11,
                         12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
 const uint8_t PIN_SPECS[] = {
@@ -47,6 +71,7 @@ uint8_t PIN_STATES[] = {
 
 // Hardware definitions for Arduino Uno
 #elif defined(ARDUINO_AVR_UNO)  // 2x fewer ADC pins
+const uint8_t IDENTITY = 2;
 const uint8_t PINS[] = {2,  3,  4,  5,  6,  7,  8,  9,  10,
                         11, 12, 13, 14, 15, 16, 17, 18, 19};
 const uint8_t PIN_SPECS[] = {
@@ -62,6 +87,7 @@ uint8_t PIN_STATES[] = {
 
 // Hardware definitions for Arduino Pico
 #elif defined(ARDUINO_RASPBERRY_PI_PICO)
+const uint8_t IDENTITY = 3;
 const uint8_t PINS[] = {};
 const uint8_t PIN_SPECS[] = {};
 uint8_t PIN_STATES[] = {};
@@ -69,3 +95,5 @@ uint8_t PIN_STATES[] = {};
 #endif
 // Dont compile for an undefined target as we have
 // no idea what that hardware supports.
+
+#endif  // Header guard
