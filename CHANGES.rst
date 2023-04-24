@@ -1,7 +1,7 @@
 Version 0.7.0
 -------------
 
-:Date: TBC
+:Date: 25-April-2023
 
 * Restructuring device definition to capture pin indices, state and specs.
   This allows the device to communicate its capabilities.
